@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101714">
+    <meta name="description" content="Identify airport control-tower light-gun signals and look up their meanings.">
+    <title>Signal | ATC Light-Gun Identifier</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Signal home">
+        <span class="brand-mark" aria-hidden="true">S</span>
+        <span>SIGNAL<span class="brand-light"> / FLIGHT DECK</span></span>
+      </a>
+      <span class="topbar-label"><span class="status-dot" aria-hidden="true"></span> ATC LIGHT-GUN FIELD GUIDE</span>
+    </header>
+
+    <main>
+      <section class="intro">
+        <p class="eyebrow">VISUAL SIGNAL IDENTIFICATION</p>
+        <h1>Read the light.<br><span>Know your next move.</span></h1>
+        <p class="intro-copy">Identify airport control-tower light-gun signals and see what they mean for your aircraft.</p>
+      </section>
+
+      <nav class="mode-tabs" role="tablist" aria-label="Identification method">
+        <button class="mode-tab is-active" id="manual-tab" type="button" role="tab" aria-selected="true" aria-controls="manual-panel">
+          <span class="tab-number">01</span> Signal lookup
+        </button>
+        <button class="mode-tab" id="camera-tab" type="button" role="tab" aria-selected="false" aria-controls="camera-panel" tabindex="-1">
+          <span class="tab-number">02</span> Live camera
+        </button>
+      </nav>
+
+      <section class="mode-panel" id="manual-panel" role="tabpanel" aria-labelledby="manual-tab">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">MANUAL IDENTIFICATION</p>
+            <h2>What did you see?</h2>
+          </div>
+          <span class="step-label">SELECT A SIGNAL</span>
+        </div>
+
+        <fieldset class="context-field">
+          <legend class="field-label">YOUR AIRCRAFT IS</legend>
+          <div class="context-options">
+            <label class="context-option">
+              <input type="radio" name="context" value="air" checked>
+              <span><span class="option-icon" aria-hidden="true">↗</span> In flight</span>
+            </label>
+            <label class="context-option">
+              <input type="radio" name="context" value="ground">
+              <span><span class="option-icon" aria-hidden="true">⌁</span> On the ground</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="signal-grid" role="group" aria-label="Tower light-gun signal">
+          <button class="signal-card" type="button" data-signal="steady-green" aria-pressed="false">
+            <span class="signal-icon signal-green" aria-hidden="true"><span></span></span>
+            <span class="signal-name">Steady green</span>
+            <span class="signal-pattern">SOLID LIGHT</span>
+          </button>
+          <button class="signal-card" type="button" data-signal="flashing-green" aria-pressed="false">
+            <span class="signal-icon signal-green is-flashing" aria-hidden="true"><span></span></span>
+            <span class="signal-name">Flashing green</span>
+            <span class="signal-pattern">FLASHING LIGHT</span>
+          </button>
+          <button class="signal-card" type="button" data-signal="steady-red" aria-pressed="false">
+            <span class="signal-icon signal-red" aria-hidden="true"><span></span></span>
+            <span class="signal-name">Steady red</span>
+            <span class="signal-pattern">SOLID LIGHT</span>
+          </button>
+          <button class="signal-card" type="button" data-signal="flashing-red" aria-pressed="false">
+            <span class="signal-icon signal-red is-flashing" aria-hidden="true"><span></span></span>
+            <span class="signal-name">Flashing red</span>
+            <span class="signal-pattern">FLASHING LIGHT</span>
+          </button>
+          <button class="signal-card" type="button" data-signal="flashing-white" aria-pressed="false">
+            <span class="signal-icon signal-white is-flashing" aria-hidden="true"><span></span></span>
+            <span class="signal-name">Flashing white</span>
+            <span class="signal-pattern">FLASHING LIGHT</span>
+          </button>
+          <button class="signal-card" type="button" data-signal="alternating" aria-pressed="false">
+            <span class="signal-icon signal-alternating" aria-hidden="true"><span></span><span></span></span>
+            <span class="signal-name">Red and green</span>
+            <span class="signal-pattern">ALTERNATING</span>
+          </button>
+        </div>
+
+        <section class="result-card" id="manual-result" aria-live="polite" aria-atomic="true">
+          <div class="result-marker" aria-hidden="true"><span>—</span></div>
+          <div>
+            <p class="result-kicker">SIGNAL MEANING</p>
+            <h3 id="manual-result-title">Choose the signal you observed</h3>
+            <p id="manual-result-copy">Select a light above to see the corresponding tower instruction.</p>
+          </div>
+          <span class="result-context" id="manual-result-context">AWAITING INPUT</span>
+        </section>
+
+        <p class="disclaimer"><strong>Training aid only.</strong> Always follow current ATC instructions, published procedures, and your official aviation references.</p>
+      </section>
+
+      <section class="mode-panel" id="camera-panel" role="tabpanel" aria-labelledby="camera-tab" hidden>
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">LIVE IDENTIFICATION</p>
+            <h2>Show the light anywhere in view.</h2>
+          </div>
+          <span class="step-label">CAMERA ANALYSIS</span>
+        </div>
+
+        <fieldset class="context-field">
+          <legend class="field-label">YOUR AIRCRAFT IS</legend>
+          <div class="context-options">
+            <label class="context-option">
+              <input type="radio" name="camera-context" value="air" checked>
+              <span><span class="option-icon" aria-hidden="true">↗</span> In flight</span>
+            </label>
+            <label class="context-option">
+              <input type="radio" name="camera-context" value="ground">
+              <span><span class="option-icon" aria-hidden="true">⌁</span> On the ground</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="camera-frame" id="camera-frame">
+          <video id="camera-video" autoplay playsinline muted hidden aria-label="Live camera feed"></video>
+          <div class="camera-scan-area" aria-hidden="true"><span></span></div>
+          <div class="camera-overlay">
+            <span class="camera-live" id="camera-live"><span></span> CAMERA OFF</span>
+            <span class="camera-hint">SCANNING FULL CAMERA VIEW</span>
+          </div>
+          <div class="camera-placeholder" id="camera-placeholder">
+            <span class="camera-placeholder-icon" aria-hidden="true">◎</span>
+            <span>Camera feed will appear here</span>
+          </div>
+        </div>
+
+        <div class="camera-controls">
+          <p class="camera-status" id="camera-status" aria-live="polite">Start the camera to scan the full view for light colors and flashing patterns.</p>
+          <div class="camera-buttons">
+            <button class="button button-primary" id="camera-start" type="button">Start camera</button>
+            <button class="button button-secondary" id="camera-stop" type="button" disabled>Stop camera</button>
+          </div>
+        </div>
+
+        <section class="result-card camera-result" id="camera-result" aria-live="polite" aria-atomic="true">
+          <div class="result-marker" aria-hidden="true"><span>—</span></div>
+          <div>
+            <p class="result-kicker">DETECTED SIGNAL</p>
+            <h3 id="camera-result-title">Waiting for a signal</h3>
+            <p id="camera-result-copy">Keep the tower light visible anywhere in the frame. Analysis may take a few seconds.</p>
+          </div>
+          <span class="result-context" id="camera-result-context">NO SIGNAL</span>
+        </section>
+
+        <p class="camera-note">Detection scans the full live image in your browser; video is not uploaded. Keep the tower light visible anywhere in the frame. Use a secure page (HTTPS or localhost).</p>
+        <p class="disclaimer"><strong>Training aid only.</strong> Camera detection can be affected by distance, glare, reflections, and surrounding lights. Always verify the signal and follow current ATC instructions.</p>
+      </section>
+
+      <section class="reference">
+        <div class="reference-heading">
+          <div>
+            <p class="eyebrow">QUICK REFERENCE</p>
+            <h2>All six light-gun signals</h2>
+          </div>
+          <span class="reference-note">FAA ATC LIGHT SIGNALS</span>
+        </div>
+        <div class="reference-table-wrap">
+          <table class="reference-table">
+            <thead>
+              <tr><th scope="col">Signal</th><th scope="col">Aircraft in flight</th><th scope="col">Aircraft on the ground</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row"><span class="table-swatch swatch-green"></span> Steady green</th><td>Cleared to land</td><td>Cleared for takeoff</td></tr>
+              <tr><th scope="row"><span class="table-swatch swatch-green swatch-flash"></span> Flashing green</th><td>Return for landing (steady green to follow)</td><td>Cleared to taxi</td></tr>
+              <tr><th scope="row"><span class="table-swatch swatch-red"></span> Steady red</th><td>Give way to other aircraft and continue circling</td><td>Stop</td></tr>
+              <tr><th scope="row"><span class="table-swatch swatch-red swatch-flash"></span> Flashing red</th><td>Airport unsafe; do not land</td><td>Taxi clear of runway in use</td></tr>
+              <tr><th scope="row"><span class="table-swatch swatch-white swatch-flash"></span> Flashing white</th><td>Land at this airport and proceed to the ramp</td><td>Return to starting point on the airport</td></tr>
+              <tr><th scope="row"><span class="table-swatch swatch-alternating"></span> Alternating red and green</th><td colspan="2">Exercise extreme caution</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="source-note">Signal meanings summarized from the FAA Aeronautical Information Manual (AIM), ATC Light Gun Signals.</p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>SIGNAL <span class="footer-separator">/</span> FLIGHT DECK</span>
+      <span>Built for clarity. Not a substitute for official guidance.</span>
+    </footer>
+  </body>
+</html>
